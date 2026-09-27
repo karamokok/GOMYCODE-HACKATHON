@@ -1,0 +1,43 @@
+﻿id,texte,canal,etiquette,famille,source,split,origine
+A1,"Félicitations ! Bonne nouvelle, un cadeau de 10.000F CFA vous est offert. Cliquez ici : [LIEN wave-...] L'équipe Wave",sms,arnaque,faux_cadeau_wave,collecte_equipe,dev,REEL
+A2,"Bonne nouvelle ! Votre fidélité est récompensée : un cadeau de 10.000F CFA. Réclamez ici : [LIEN] L'équipe wave",sms,arnaque,faux_cadeau_wave,collecte_equipe,dev,REEL
+A3,"Nous avons constaté une tentative pour récupérer votre cadeau Wave qui est erronée. Cliquez ici : [LIEN netlify.app] L'équipe Wave",sms,arnaque,faux_cadeau_wave,collecte_equipe,dev,REEL
+A4,"Bonjour vous êtes chez vous ? C'est le livreur. Choisissez ici votre nouveau créneau ou point relais : [LIEN]",sms,arnaque,faux_livreur,collecte_equipe,dev,REEL
+A5,"Bonjour, vous avez reçu un transfert de 70700 FCFA du [NUMERO]. Référence [ID]. Nouveau solde 70700.70 FCFA.",sms,arnaque,faux_transfert,collecte_equipe,test,REEL
+A6,"+454 : Dépôt de 12100.00F effectué par le [NUMERO]. Frais 0F. Frais de timbre 100F. Orange Money",sms,arnaque,usurpation_expediteur,collecte_equipe,dev,REEL
+A7,"OrangeMoney - Dépôt effectué par [NOM] vers [NOM]. Montant 470000 FCFA. Nouveau solde 971925 FCFA",sms,arnaque,faux_depot,collecte_equipe,dev,REEL
+A8,"Cadeau de 10.000F CFA vous est offert. Cliquez ici : https://waveciv.cloudaccess.host/ L'équipe Wave",sms,arnaque,faux_cadeau_wave,collecte_equipe,test,REEL
+A9,"Votre fidélité est récompensée. https://wavekdo.netlify.app/ L'équipe wave",sms,arnaque,faux_cadeau_wave,collecte_equipe,dev,REEL
+A10,"Envoie à ta go [LIEN] c'est quel jeu ça",whatsapp,arnaque,lien_non_authentifie,collecte_equipe,dev,REEL
+A13,"Vous avez effectué un paiement de 28 000 FCFA chez COMPTE_SONEC. Moov Money vous remercie",sms,arnaque,faux_paiement,collecte_equipe,dev,REEL
+A15,"+454 : Le dépôt de 200.00F a été effectué avec succès par le [NUMERO]. Solde 5200.00F. OMCI vous remercie.",sms,arnaque,usurpation_expediteur,collecte_equipe,test,REEL
+A16,"Orange te fait gagner ! [NUMERO], plus de 15 millions de CFA. Envoie ""OK"" au 7779. 100 CFA/jr",sms,arnaque,abonnement_cache,collecte_equipe,test,REEL
+A17,"Participez au Quiz Megawin et tentez de gagner jusqu'à 5 MILLIONS FCFA. Envoyez vite WIN par SMS au 7881. 103F/SMS",sms,arnaque,abonnement_cache,collecte_equipe,test,REEL
+A18,"Wave Anniversaire : 12 000 F CFA. Vérifiez votre numéro, offre limitée ! Cliquez https://wave230.th8h.xyz/?wave=1073",sms,arnaque,faux_cadeau_wave,collecte_equipe,test,REEL
+A19,"Jumia - Anniversaire Cadeau. Votre anniversaire arrive. https://jumia.xvw63.top/",sms,arnaque,faux_cadeau_jumia,collecte_equipe,dev,REEL
+A20,"Wave - Ramadan Cadeaux. Tout le monde peut recevoir. https://wave.ujkuw.top/",sms,arnaque,faux_cadeau_wave,collecte_equipe,test,REEL
+S1,"Bonjour, je viens de faire un depot sur ton numero par erreur. Je me suis trompe de chiffre. Renvoie moi l'argent stp, c'est urgent j'en ai besoin",whatsapp,arnaque,faux_transfert_relance,presse,dev,SYNTHETIQUE
+S2,"Bonjour, c'est le service client Orange Money. Nous avons detecte un probleme sur votre compte. Donnez-nous le code a 4 chiffres que vous venez de recevoir pour le debloquer",appel,arnaque,faux_agent_otp,Orange CI,dev,SYNTHETIQUE
+S3,"Votre compte Orange Money sera suspendu dans 24h. Composez le code recu par SMS et confirmez a cet agent pour eviter la suspension",sms,arnaque,menace_suspension,Orange CI,dev,SYNTHETIQUE
+S4,"Bonjour, c'est un agent Orange. Faites un depot de [MONTANT] FCFA sur ce numero [NUMERO] pour finaliser la verification de votre compte",appel,arnaque,depot_tiers,Orange CI,dev,SYNTHETIQUE
+S5,"Salut c'est moi, j'ai change de numero. Je suis bloque je n'ai plus rien sur moi. Envoie moi [MONTANT] FCFA je te rembourse demain sans faute",whatsapp,arnaque,usurpation_proche,Orange CI,dev,SYNTHETIQUE
+S6,"Je me suis trompe en envoyant l'argent. Compose le code d'annulation que je te donne pour que la transaction soit annulee : [CODE]",appel,arnaque,code_annulation_inverse,Jangaan Tech,dev,SYNTHETIQUE
+S7,"Desole je t'ai envoye trop d'argent par erreur. J'ai envoye [MONTANT] au lieu de [MONTANT]. Renvoie moi la difference stp",whatsapp,arnaque,trop_percu_imaginaire,Jangaan Tech,dev,SYNTHETIQUE
+S8,"Bonjour c'est votre fournisseur habituel. J'ai change de numero. Le paiement est urgent aujourd'hui, envoyez sur ce nouveau numero : [NUMERO]",whatsapp,arnaque,faux_fournisseur,Jangaan Tech,dev,SYNTHETIQUE
+N1,"Je suis intéressé. On va vous recontacter pour le casting.",whatsapp,legitime,conversation_perso,collecte_equipe,dev,REEL
+N2,"Bonsoir monsieur. Vous êtes arrivés ? À la Riviera 2.",whatsapp,legitime,conversation_livraison,collecte_equipe,dev,REEL
+N3,"Le transfert de [MONTANT]F reçu de [NOM] a été annulé. Nouveau solde [MONTANT]F. Service client 1315",sms,legitime,notification_wave,collecte_equipe,test,REEL
+N4,"Vous avez reçu [MONTANT]F de [NOM] ([NUMERO]). Nouveau solde [MONTANT]F",sms,legitime,notification_wave,collecte_equipe,dev,REEL
+N5,"Soirée Foot sur Max it ! Vivez le match. [LIEN ORANGE]",sms,legitime,promotion_orange,collecte_equipe,dev,REEL
+N6,"Achat de Pass Minutes 200F bien effectué. Réf [ID]",sms,legitime,confirmation_achat,collecte_equipe,dev,REEL
+N7,"Achat de Pass Special 3jrs 500F, 1.5Go. Réf [ID]",sms,legitime,confirmation_achat,collecte_equipe,dev,REEL
+N8,"Alerte Bonus ! Double ton volume internet ! RDV à la cabine ou via les autres canaux !",sms,legitime,promotion_operateur,collecte_equipe,test,REEL
+N9,"100% bonus Internet via nos canaux : *303#, la cabine, MyMoov",sms,legitime,promotion_moov,collecte_equipe,dev,REEL
+N10,"Offre à ton enfant la tablette Edukids. Commande vite sur [LIEN MOOV]",sms,legitime,promotion_moov,collecte_equipe,dev,REEL
+N11,"Cadeau pour toi ! La WIMO 4G Cat 6 + 100Go. [LIEN MOOV]",sms,legitime,promotion_moov,collecte_equipe,dev,REEL
+N12,"Vous avez reçu un dépôt de [MONTANT]F de [NOM]. Réf [ID]",sms,legitime,notification_orange_money,collecte_equipe,dev,REEL
+N13,"Vous allez faire un retrait de [MONTANT]FCFA. Veuillez entrer le #144# et suivre les instructions",sms,legitime,notification_orange_money,collecte_equipe,test,REEL
+N14,"Vous avez retiré [MONTANT]FCFA. Frais [MONTANT]F. Commission [MONTANT]F. Total débité [MONTANT]F",sms,legitime,notification_orange_money,collecte_equipe,test,REEL
+N17,"Orange Max it : Vérification automatique de votre compte, NE PAS TRANSFÉRER ! [CODE]",sms,legitime,code_verification,collecte_equipe,test,REEL
+N18,"Votre compte OM est débloqué. Utilisez le code provisoire [CODE] via le lien https://link.orange.ci/MxtOM",sms,legitime,notification_orange_money,collecte_equipe,test,REEL
+N20,"Ne manquez pas la Ligue des Champions sur Max It et la TV d'Orange ! Rendez-vous ce soir à 17h45 sur New World Sport",sms,legitime,promotion_orange,collecte_equipe,test,REEL

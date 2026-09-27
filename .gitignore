@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# Gradio
+.gradio/
+flagged/
+
+# Fichiers d'essai temporaires (captures fabriquées, bilans)
+_*.py
+_*.png
+_*.jpeg
+_*.jpg
+_bilan_*.txt
+_eval.txt
+_*.txt
+
+# Systèmes
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Éditeurs
+.vscode/
+.idea/
+*.swp
+
+# Rien de personnel ne doit entrer ici : aucun message réel non anonymisé,
+# aucune capture d'écran de SMS reçu, aucune clé.
+*.env
+.env.*
+secrets.*
+captures/

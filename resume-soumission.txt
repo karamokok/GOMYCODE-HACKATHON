@@ -1,0 +1,11 @@
+En Côte d'Ivoire, les arnaques au mobile money arrivent par SMS : faux cadeau Wave, code secret réclamé au nom d'Orange Money, faux dépôt à rembourser. La personne doit décider seule, en quelques secondes.
+
+Notre outil lit une capture d'écran. Il rend un verdict tricolore, la conduite à tenir, et le vrai numéro de son opérateur — pour ne pas rappeler celui de l'escroc.
+
+Copier-coller perd l'expéditeur, souvent le seul indice. La capture le montre.
+
+Aucune IA ne rend le verdict. Les modèles constatent des faits ; des règles déterministes décident.
+
+Corpus de 42 messages, dont 34 relevés localement ; un tiers réservé au test. Modèles ouverts, en local : aucun SMS ne part ailleurs.
+
+Vérifié pour la Côte d'Ivoire. L'étendre à un autre pays d'Afrique de l'Ouest ne demande que ses numéros et expéditeurs officiels : six tables, aucune logique réécrite.
