@@ -40,6 +40,22 @@ MESSAGE_SANS_CAPTURE = (
     "Envoie une capture d'écran du message pour que je puisse l'analyser."
 )
 
+# Ce qui s'affiche PENDANT l'analyse. Sans ça, l'écran ne bouge pas pendant
+# vingt à trente secondes — et une démonstration devant un jury se lit alors
+# comme un plantage. On annonce aussi la durée : une attente prévue est une
+# attente supportable.
+ATTENTE_TEXTE = (
+    "Analyse du message",
+    "Le modèle relève les faits, les règles calculent le verdict. "
+    "Compte une vingtaine de secondes.",
+)
+
+ATTENTE_CAPTURE = (
+    "Lecture de la capture",
+    "Le modèle recopie l'expéditeur et le texte, puis l'analyse commence. "
+    "C'est l'étape la plus longue : de trente secondes à deux minutes.",
+)
+
 # Trois exemples cliquables : une arnaque au code, un faux transfert, un vrai
 # message d'opérateur.
 EXEMPLES = [
@@ -60,42 +76,134 @@ EXEMPLES = [
     ),
 ]
 
+# Le thème. Bleu-vert en couleur principale : il habille les boutons et les
+# onglets sans jamais entrer en concurrence avec le rouge, l'orange et le vert
+# du verdict, qui doivent rester les seules couleurs porteuses de sens.
+THEME = gr.themes.Base(
+    primary_hue=gr.themes.colors.teal,
+    neutral_hue=gr.themes.colors.stone,
+    font=[gr.themes.GoogleFont("Source Sans 3"), "system-ui", "sans-serif"],
+).set(
+    body_background_fill="#FAF8F4",
+    body_background_fill_dark="#14130F",
+    block_radius="10px",
+    button_large_radius="10px",
+)
+
 CSS = """
-.bloc-verdict {
-    border-left: 6px solid;
-    border-radius: 8px;
-    padding: 18px 20px;
-    margin-top: 8px;
+/* Palette. L'accent est un bleu-vert profond, volontairement hors du
+   tricolore : rouge, orange et vert sont réservés aux verdicts et ne doivent
+   jamais servir de décoration. */
+:root {
+  --fond:        #FAF8F4;
+  --carte:       #FFFFFF;
+  --encre:       #1A1814;
+  --encre-douce: #5C554A;
+  --trait:       #E5DFD4;
+  --accent:      #1F5560;
+
+  --rouge-fond: #FDECEA;  --rouge-bord: #C0392B;  --rouge-encre: #6B1410;
+  --orange-fond:#FFF4E5;  --orange-bord:#D97706;  --orange-encre:#6B2710;
+  --vert-fond:  #EAF6EC;  --vert-bord:  #2E7D32;  --vert-encre:  #123F23;
+  --neutre-fond:#EEF1F5;  --neutre-bord:#64748B;  --neutre-encre:#1E293B;
 }
-/* Gradio colore le texte en blanc dans son thème sombre, y compris à
-   l'intérieur de nos blocs au fond clair : le texte devenait invisible.
-   On force chaque élément à reprendre la couleur de son bloc. */
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --fond:        #14130F;
+    --carte:       #1C1A15;
+    --encre:       #F0EBE2;
+    --encre-douce: #A69C8B;
+    --trait:       #312C23;
+    --accent:      #6FB3BF;
+
+    --rouge-fond: #2E1512;  --rouge-bord: #E8796C;  --rouge-encre: #FBD9D4;
+    --orange-fond:#2C1F0E;  --orange-bord:#DCA24C;  --orange-encre:#FAE8CC;
+    --vert-fond:  #13251A;  --vert-bord:  #7CBE8A;  --vert-encre:  #D6EEDC;
+    --neutre-fond:#1B1F26;  --neutre-bord:#8A97A8;  --neutre-encre:#DDE3EA;
+  }
+}
+
+/* L'en-tête : le titre est une question, il doit se lire comme telle. */
+.entete h1 {
+  font-size: 1.85em !important;
+  line-height: 1.15 !important;
+  letter-spacing: -0.015em;
+  margin-bottom: 0.25em !important;
+  text-wrap: balance;
+}
+.entete p { color: var(--encre-douce); max-width: 34rem; }
+
+/* Le bloc de verdict. */
+.bloc-verdict {
+  border-left: 6px solid;
+  border-radius: 10px;
+  padding: 20px 22px;
+  margin-top: 10px;
+}
+/* Gradio force le texte en blanc dans son thème sombre, y compris dans nos
+   blocs : sans cette ligne, le résultat devient invisible. */
 .bloc-verdict *, .avertissement * { color: inherit !important; }
+
 .bloc-verdict .titre { font-size: 1.45em; font-weight: 700; margin: 0; }
 .bloc-verdict .sous-titre { font-size: 1.05em; margin: 4px 0 14px 0; }
 .bloc-verdict ul, .bloc-verdict ol { margin: 0 0 4px 0; padding-left: 22px; }
-.bloc-verdict li { margin-bottom: 7px; line-height: 1.45; }
-.bloc-verdict .intitule-conduite {
-    font-weight: 700; margin: 16px 0 6px 0;
-}
-.verdict-rouge  { background:#fdecea; border-color:#c0392b; color:#6b1410; }
-.verdict-orange { background:#fff4e5; border-color:#d97706; color:#6b2710; }
-.verdict-vert   { background:#eaf6ec; border-color:#2e7d32; color:#123f23; }
-.verdict-neutre { background:#eef1f5; border-color:#64748b; color:#1e293b; }
-.avertissement {
-    background:#fff4e5; border-left:6px solid #d97706; color:#7c2d12;
-    border-radius:8px; padding:10px 14px; margin-bottom:10px;
-}
-/* La consigne officielle de l'opérateur : présente, mais en retrait de la
-   conduite à tenir, qui reste l'information principale. */
+.bloc-verdict li { margin-bottom: 7px; line-height: 1.5; }
+.bloc-verdict .intitule-conduite { font-weight: 700; margin: 16px 0 6px 0; }
 .bloc-verdict .consigne-operateur {
-    margin: 16px 0 0 0;
-    padding-top: 12px;
-    border-top: 1px solid rgba(0,0,0,0.15);
-    font-size: 0.95em;
-    opacity: 0.85;
+  margin: 16px 0 0 0;
+  padding-top: 12px;
+  border-top: 1px solid currentColor;
+  font-size: 0.95em;
+  opacity: 0.8;
 }
-.mention-vie-privee { font-size: 0.9em; opacity: 0.75; margin-top: -6px; }
+
+.verdict-rouge  { background:var(--rouge-fond);  border-color:var(--rouge-bord);  color:var(--rouge-encre); }
+.verdict-orange { background:var(--orange-fond); border-color:var(--orange-bord); color:var(--orange-encre); }
+.verdict-vert   { background:var(--vert-fond);   border-color:var(--vert-bord);   color:var(--vert-encre); }
+.verdict-neutre { background:var(--neutre-fond); border-color:var(--neutre-bord); color:var(--neutre-encre); }
+
+.avertissement {
+  background: var(--orange-fond);
+  border-left: 6px solid var(--orange-bord);
+  color: var(--orange-encre);
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+
+/* L'attente. Trois points qui respirent : l'écran doit montrer qu'il
+   travaille, sinon trente secondes se lisent comme un plantage. */
+.bloc-attente {
+  background: var(--carte);
+  border-color: var(--accent);
+  color: var(--encre);
+}
+.bloc-attente .sous-titre { color: var(--encre-douce) !important; margin-bottom: 0; }
+.pulsation { display: flex; gap: 6px; margin-bottom: 12px; }
+.pulsation span {
+  width: 9px; height: 9px; border-radius: 50%;
+  background: var(--accent);
+  animation: respire 1.4s ease-in-out infinite;
+}
+.pulsation span:nth-child(2) { animation-delay: 0.2s; }
+.pulsation span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes respire {
+  0%, 80%, 100% { opacity: 0.25; transform: scale(0.85); }
+  40%           { opacity: 1;    transform: scale(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pulsation span { animation: none; opacity: 0.7; }
+}
+
+.mention-vie-privee { font-size: 0.9em; opacity: 0.7; margin-top: 4px; }
+
+/* Téléphone : c'est là que ces messages sont reçus. */
+@media (max-width: 640px) {
+  .entete h1 { font-size: 1.5em !important; }
+  .bloc-verdict { padding: 16px 16px; border-radius: 8px; }
+  .bloc-verdict .titre { font-size: 1.28em; }
+}
 """
 
 
@@ -132,6 +240,27 @@ def _html_resultat(analyse):
         f"{html.escape(sortie.consigne_operateur)}</p>"
     ))
     return "".join(morceaux)
+
+
+def _attente(etat):
+    """Le bloc affiché pendant que le modèle travaille."""
+    titre, detail = etat
+    return (
+        '<div class="bloc-verdict bloc-attente">'
+        '<div class="pulsation" aria-hidden="true"><span></span><span></span>'
+        '<span></span></div>'
+        f'<p class="titre">{html.escape(titre)}…</p>'
+        f'<p class="sous-titre">{html.escape(detail)}</p>'
+        "</div>"
+    )
+
+
+def _attente_texte():
+    return _attente(ATTENTE_TEXTE)
+
+
+def _attente_capture():
+    return _attente(ATTENTE_CAPTURE)
 
 
 def _analyser_capture(image):
@@ -171,8 +300,7 @@ def _liberer():
 
 def construire():
     with gr.Blocks(title=TITRE, analytics_enabled=False) as interface:
-        gr.Markdown(f"# {TITRE}\n{SOUS_TITRE}")
-        resultat = gr.HTML()
+        gr.Markdown(f"# {TITRE}\n{SOUS_TITRE}", elem_classes="entete")
 
         with gr.Tabs():
             # La capture d'abord : c'est la façon recommandée, parce qu'elle
@@ -203,18 +331,25 @@ def construire():
                     ]
                 bouton = gr.Button(LIBELLE_BOUTON, variant="primary")
 
+        # Le résultat vient SOUS le bouton : le bouton est en bas de l'écran,
+        # et une réponse qui s'affiche au-dessus oblige à remonter pour la
+        # lire — sur téléphone, on croit qu'il ne s'est rien passé.
+        resultat = gr.HTML()
         gr.Markdown(MENTION_VIE_PRIVEE, elem_classes="mention-vie-privee")
 
         for bouton_exemple, (_, texte) in zip(boutons_exemples, EXEMPLES):
             bouton_exemple.click(lambda t=texte: t, None, champ, queue=False)
 
-        # Bouton désactivé pendant l'analyse, et concurrency_limit=1 pour
-        # qu'un clic répété ne lance jamais deux analyses en parallèle.
+        # Le bloc d'attente s'affiche avant l'appel au modèle, sans passer par
+        # la file (queue=False) pour qu'il arrive tout de suite.
+        # concurrency_limit=1 : un clic répété ne lance jamais deux analyses.
         bouton.click(_occuper, None, bouton, queue=False) \
+              .then(_attente_texte, None, resultat, queue=False) \
               .then(_analyser, champ, resultat, concurrency_limit=1) \
               .then(_liberer, None, bouton, queue=False)
 
         bouton_capture.click(_occuper, None, bouton_capture, queue=False) \
+                      .then(_attente_capture, None, resultat, queue=False) \
                       .then(_analyser_capture, capture, resultat,
                             concurrency_limit=1) \
                       .then(_liberer, None, bouton_capture, queue=False)
@@ -222,7 +357,9 @@ def construire():
     return interface
 
 
-# En Gradio 6, le CSS se passe à launch() et non au constructeur Blocks.
+# En Gradio 6, le CSS ET le thème se passent à launch(), pas au constructeur
+# Blocks : sur le constructeur, ils sont ignorés avec un simple avertissement,
+# et l'interface s'affiche sans mise en forme sans que rien ne signale l'erreur.
 #
 # Trois façons de lancer :
 #
@@ -253,6 +390,7 @@ if __name__ == "__main__":
 
     construire().launch(
         css=CSS,
+        theme=THEME,
         share=partage,
         server_name="0.0.0.0" if reseau else "127.0.0.1",
     )
